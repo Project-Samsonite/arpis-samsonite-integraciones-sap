@@ -1,0 +1,23 @@
+<service>
+	<id>ArpisIntegracionSAP</id>
+	<name>Arpis - Servicio Integracion SAP</name>
+	<description>Todo lo referente a SAP</description>
+	<startmode>Automatic</startmode>
+	<delayedAutoStart>true</delayedAutoStart>
+	<interactive>false</interactive>
+	<logpath>C:\ARPIS\ServicioIntegraciones\Sap\win-service\logs</logpath>
+	<log mode="roll-by-time">
+		<pattern>yyyy-MM-dd</pattern>
+	</log>
+	<serviceaccount>
+		<username>LocalSystem</username>
+	</serviceaccount>
+	<workingdirectory>C:\ARPIS\ServicioIntegraciones\Sap\win-service</workingdirectory>
+	<executable>C:\Program Files\openjdk11\bin\java</executable>
+	<arguments>-Xmx1024m -Xms512m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m -Dspring.profiles.active=qa -Dspring.config.location=/ARPIS/ServicioIntegraciones/Sap/config/sap-application.properties,/ARPIS/ServicioIntegraciones/Sap/config/sap-empresas.properties,/ARPIS/ServicioIntegraciones/Sap/config/sap.properties -jar C:\ARPIS\ServicioIntegraciones\Sap\arpis-samsonite-integraciones-sap.jar</arguments>
+	<env name="INT_EMAIL_SMTP_PASSWORD" value=""/> <!-- DATO SENSIBLE -->
+	<env name="INT_EMAIL_SMTP_USER" value=""/> <!-- DATO SENSIBLE -->
+	<env name="INT_EMAIL_TO" value="test@arpis.cl"/>
+	<env name="INT_LOGS_LEVEL" value="DEBUG"/>
+	<env name="INT_LOGS_PATH" value="C:\ARPIS\ServicioIntegraciones\Sap\logs"/>
+</service>

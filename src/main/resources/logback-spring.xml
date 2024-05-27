@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<configuration>
+
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+	<property name="LOG_PATTERN" value="[%d{yyyy-MM-dd HH:mm:ss}] [%5p] --- %-30.30c{1} : %m%n%ex"/>
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>${LOG_PATTERN}</pattern>
+		</layout>
+	</appender>
+
+	<appender name="integraciones-file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+		<prudent>true</prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>
+				${INT_LOGS_PATH}/@project.artifactId@/@project.artifactId@_@project.version@_%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+	</appender>
+
+	<logger name="cl.ap.ssn.integraciones" level="${INT_LOGS_LEVEL}" additivity="false">
+		<appender-ref ref="console" />
+		<appender-ref ref="integraciones-file" />
+	</logger>
+
+	<root level="INFO" additivity="false">
+		<appender-ref ref="console" />
+		<appender-ref ref="integraciones-file" />
+	</root>
+
+	<jmxConfigurator />
+
+</configuration>
