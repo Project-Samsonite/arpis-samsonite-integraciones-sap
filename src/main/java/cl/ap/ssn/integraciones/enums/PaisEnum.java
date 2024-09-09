@@ -13,7 +13,8 @@ public enum PaisEnum {
 	PERU("peru"),
 	COLOMBIA("colombia"),
 	ARGENTINA("argentina"),
-	MEXICO("mexico")
+	MEXICO("mexico"),
+	URUGUAY("uruguay")
 	;
 
 	private String value;
