@@ -13,7 +13,8 @@ public enum EmpresaEnum {
 	TUMI("tumi"),
 	XTREM("xtrem"),
 	SECRET("secret"),
-	SAXOLINE("saxoline")
+	SAXOLINE("saxoline"),
+	AMERICAN("american")
 	;
 
 	private String value;
