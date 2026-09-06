@@ -92,9 +92,27 @@ public class SapGenerarServiceImpl extends AbstractProcessService<IntegracionSap
 			Optional<RespuestaProcedimientoDTO> resultadoProc = null;
 			for(OmsLogIoIntegracionDTO ordenPendiente : ordenesPendientes) {
 				try {
+					
+					
+					 /*
+			         * Revalidar que la orden siga pendiente antes de procesar
+			         */
+			        final List<OmsLogIoIntegracionDTO> pendientesActuales = this.dbGeneralService.obtenerPendientes(
+			                integracion.getEmpresa(), null, apiInfo.get(), integracion.getCodigoPost());
+			        final boolean sigueVigente = pendientesActuales.stream()
+			                .anyMatch(p -> p.getId().equals(ordenPendiente.getId()));
+			        if(!sigueVigente) {
+			            log.error(String.format("[%s] Orden id=%s ya no está pendiente, se omite",
+			                    integracion.toStringSuper(), ordenPendiente.getId()));
+			            continue;
+			        }
+					
+					
 					/*
 					 * Actualizar Estado Reintento Sin Canal
 					 */
+					
+					
 					logIoTmp = this.actualizarLogIo(integracion, ordenPendiente, "EN PROCESO", null);
 					/*
 					 * Orden SAP
